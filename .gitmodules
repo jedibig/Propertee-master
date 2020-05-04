@@ -1,0 +1,3 @@
+[submodule "PropertyProject"]
+	path = PropertyProject
+	url = https://github.com/jedibig/Propertee.git
