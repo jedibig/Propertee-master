@@ -22,6 +22,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @Controller
@@ -44,11 +45,15 @@ public class ListingController {
             return "defaulterror";
         }
 
-        final String nextpage = new URIBuilder(request.getRequestURI())
-                        .setParameter("offset", Integer.toString(offset+1))
-                        .build().toASCIIString();
-        System.out.println(request.getRequestURI());
-        System.out.println(nextpage);
+        //listing?keyword=california&postedBy=
+        URIBuilder builder = new URIBuilder(request.getRequestURI());
+        request.getParameterMap().forEach((k,v) -> {
+            builder.setParameter(k, v.length > 0 ? v[0] : "");
+        });
+        final String nextpage = builder.setParameter("offset", Integer.toString(offset+1))
+                .build().toASCIIString();
+
+
         m.addAttribute("isempty", true);
 
         listingSearchService.getListingWithCriteria(keyword, criteria, offset, limit).ifPresent(l->{

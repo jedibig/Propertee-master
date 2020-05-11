@@ -19,6 +19,6 @@ public class ListingSearchServiceImpl implements ListingSearchService {
 
     @Override
     public Optional<List<ListingElastic>> getListingWithCriteria(String keyword, SearchCriteria criteria, int offset, int limit) {
-        return Optional.of(repository.search(CriteriaBuilder.mapCriteria(keyword,criteria), PageRequest.of(offset,limit)).getContent());
+        return repository.getListingWithCriteria(keyword, criteria, offset, limit);
     }
 }

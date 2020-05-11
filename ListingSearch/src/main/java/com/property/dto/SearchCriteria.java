@@ -15,10 +15,6 @@ public class SearchCriteria {
     private String property_type;
     private BigDecimal minBudget;
     private BigDecimal maxBudget;
-    private Integer num_bedroom;
+    private Integer[] num_bedroom;
     private Date postedBy;
-
-    public Integer getNum_bedroom(){
-        return num_bedroom;
-    }
 }

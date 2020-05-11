@@ -8,6 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ListingRepositoryWithCriteria {
-
-    Optional<List<ListingElastic>> getListingWithCriteria(String keyword, SearchCriteria criteria, Pageable page);
+    Optional<List<ListingElastic>> getListingWithCriteria(String keyword, SearchCriteria criteria, int offset, int limit);
 }
