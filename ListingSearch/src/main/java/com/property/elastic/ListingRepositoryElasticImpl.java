@@ -4,16 +4,19 @@ import com.property.dto.ListingElastic;
 import com.property.dto.SearchCriteria;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
+@DependsOn("elasticsearchTemplate")
 public class ListingRepositoryElasticImpl implements ListingRepositoryWithCriteria {
 
-    ElasticsearchTemplate template;
+    ElasticsearchOperations template;
 
     @Override
     public Optional<List<ListingElastic>> getListingWithCriteria(String keyword, SearchCriteria criteria, int offset, int limit) {

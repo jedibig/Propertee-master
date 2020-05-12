@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
+import javax.validation.constraints.Future;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -21,13 +22,16 @@ public class ListingElastic {
 
 
     private String address;
+    @Field(type = FieldType.Text, analyzer = "edge_ngram")
     private String project_name;
+    @Field(type = FieldType.Text, index = false)
     private String description;
-
+    @Field(type = FieldType.Integer, index = false)
     private int num_beds;
+    @Field(type = FieldType.Integer,index = false)
     private int num_baths;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Keyword)
     private Property_Type property_type;
     @Field(type = FieldType.Date)
     private Date date_listed;

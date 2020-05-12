@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -17,11 +18,9 @@ import java.util.List;
 public class UserLogin {
 
     @Id
-    String username;
-    @GeneratedValue
-    int userId;
-
+    String email;
     String password;
+
     @ElementCollection(fetch = FetchType.EAGER)
-    List<String> roles;
+    Collection<String> roles;
 }

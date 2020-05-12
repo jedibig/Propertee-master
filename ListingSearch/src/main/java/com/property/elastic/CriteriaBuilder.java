@@ -63,30 +63,9 @@ public class CriteriaBuilder  {
                 .preTags("<highlight>").field("address");
 
 
-        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+        return new NativeSearchQueryBuilder()
                 .withPageable(PageRequest.of(offset, limit))
                 .withHighlightBuilder(new HighlightBuilder( highlightBuilder, queryBuilder, fields))
                 .build();
-
-        System.out.println(((NativeSearchQuery) searchQuery).toString());
-        System.out.println(queryBuilder);
-        System.out.println(highlightBuilder);
-
-
-        return searchQuery;
-            //TODO modify filter range, because it is
-//        return queryBuilder;
     }
 }
-
-// http://localhost:8080/listings?list_for=SELL&keyword=House+in+California&property_type=&postedBy=2019-05-04&minBudget=&maxBudget=&num_bedroom=
-//cat <<EOF >~/.s3cfg.riak_cs
-//        [default]
-//        access_key = MUAEQWNOB2GEPEUG6SAC
-//host_base = s3.amazonaws.dev
-//        host_bucket = %(bucket)s.s3.amazonaws.dev
-//        proxy_host = 127.0.0.1
-//        proxy_port = 8080
-//        secret_key = fSY1XKW4hh4LGSJkZIdsO78Zeh6dbXy_IYpQWw==
-//signature_v2 = True
-//        EOF

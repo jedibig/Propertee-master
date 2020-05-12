@@ -3,10 +3,8 @@ package com.property;
 import com.property.dao.LoginRepository;
 import com.property.dto.UserLogin;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -14,7 +12,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -51,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             UserLogin user = repository.findById(s)
                     .orElseThrow(() -> new UsernameNotFoundException(""));
 
-            return new User(user.getUsername(), user.getPassword(),
+            return new User(user.getEmail(), user.getPassword(),
                     user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
         });
     }
@@ -73,8 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     ApplicationRunner runner(LoginRepository repository){
         return a -> {
-            repository.save(UserLogin.builder().username("admin").password("admin").roles(Collections.singletonList("ROLE_ADMIN")).build());
-            repository.save(UserLogin.builder().username("user").password("user").roles(Collections.singletonList("ROLE_USER")).build());
+            repository.save(UserLogin.builder().email("admin").password("admin").roles(Collections.singletonList("ROLE_ADMIN")).build());
+            repository.save(UserLogin.builder().email("user").password("user").roles(Collections.singletonList("ROLE_USER")).build());
 
             System.out.println("success");
         };
