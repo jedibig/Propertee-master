@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.*;
 import java.util.stream.StreamSupport;
 
-@SpringBootTest(classes = SpringWebConfig.class)
+//@SpringBootTest(classes = SpringWebConfig.class)
 public class ElasticSearchRepositoryTest {
 
 //    @Autowired
@@ -22,7 +22,7 @@ public class ElasticSearchRepositoryTest {
 
     int listing_count = 0;
 
-    @BeforeEach
+//    @BeforeEach
     public void loadData() throws IOException {
 //        elasticsearchTemplate.deleteIndex(Listing.class);
 //        elasticsearchTemplate.createIndex(Listing.class);
@@ -43,7 +43,7 @@ public class ElasticSearchRepositoryTest {
         System.out.println("done loading data");
     }
 
-    @Test
+//    @Test
     public void shouldReturnNumberofTotalListing() {
         assertEquals(StreamSupport.stream(repository.findAll().spliterator(),false).count(), listing_count);
     }

@@ -3,11 +3,14 @@ package com.property;
 import com.property.dao.LoginRepository;
 import com.property.dto.UserLogin;
 import lombok.AllArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,13 +28,12 @@ import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
-//@ConditionalOnBean(LoginRepository.class)
-@AllArgsConstructor
-@DependsOn("urlProperties")
+@Import(UrlProperties.class)
+@Setter
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    LoginRepository repository;
-    UrlProperties properties;
+    @Autowired LoginRepository repository;
+    @Autowired UrlProperties properties;
 
     public static void main(String[] args) {
         SpringApplication.run(WebSecurityConfig.class);
@@ -48,16 +50,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             UserLogin user = repository.findById(s)
                     .orElseThrow(() -> new UsernameNotFoundException(""));
 
-            return new User(user.getEmail(), user.getPassword(),
-                    user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+            return new User(user.getEmail(), user.getEncrypted(),
+                    user.getAuthentication().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
         });
     }
 
     //securityContext: application: securityContextHolder: for each user
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        System.out.println("mapping: " + properties.getMappingaccess());
-
         for ( Map.Entry<String, String> urlRole: properties.getMappingaccess().entrySet() ) {
             http.authorizeRequests().antMatchers(urlRole.getValue()).hasRole(urlRole.getKey());
         }
@@ -70,8 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     ApplicationRunner runner(LoginRepository repository){
         return a -> {
-            repository.save(UserLogin.builder().email("admin").password("admin").roles(Collections.singletonList("ROLE_ADMIN")).build());
-            repository.save(UserLogin.builder().email("user").password("user").roles(Collections.singletonList("ROLE_USER")).build());
+            repository.save(UserLogin.builder().email("admin").password("admin").authentication(Collections.singletonList("ROLE_ADMIN")).build());
+            repository.save(UserLogin.builder().email("user").password("user").authentication(Collections.singletonList("ROLE_USER")).build());
 
             System.out.println("success");
         };

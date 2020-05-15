@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 public class ListingResultExtractor implements ResultsExtractor<List<ListingElastic>> {
     @Override
     public List<ListingElastic> extract(SearchResponse response) {
+
+
         return Arrays.stream(response.getHits().getHits()).map(s -> {
             ObjectMapper mapper = new ObjectMapper();
             try {
