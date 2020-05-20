@@ -81,12 +81,12 @@ public class ListingServiceImpl implements ListingService{
         listing.setUser(user);
         listing.setDate_listed(new Date());
 
-        ListingElastic elastic = new ListingElastic();
-        elastic.setAddress(address.getStreet() +" "+ address.getCity() +" "+ address.getState() +" "+ address.getZipcode());
-        elastic.setArea(listing.getArea());
-        elastic.setDate_listed(listing.getDate_listed());
-        elastic.setDescription(property_details.getDescription());
-        elastic.setTags(new String[]{address.getStreet(), address.getCity(), address.getState(), address.getZipcode()});
+//        ListingElastic elastic = new ListingElastic();
+//        elastic.setAddress(address.getStreet() +" "+ address.getCity() +" "+ address.getState() +" "+ address.getZipcode());
+//        elastic.setArea(listing.getArea());
+//        elastic.setDate_listed(listing.getDate_listed());
+//        elastic.setDescription(property_details.getDescription());
+//        elastic.setTags(new String[]{address.getStreet(), address.getCity(), address.getState(), address.getZipcode()});
 
 
         return listingRepository.save(listing).getListing_id();
