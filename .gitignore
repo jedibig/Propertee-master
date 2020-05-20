@@ -2,4 +2,10 @@
 out/
 target/
 *.iml
-
+.project
+.settings/
+ListingSearch/.classpath
+ListingSearch/.project
+ListingSearch/.settings/
+security/.mvn/wrapper/maven-wrapper.jar
+security/.mvn/wrapper/maven-wrapper.properties

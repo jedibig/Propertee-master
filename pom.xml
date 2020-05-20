@@ -25,6 +25,7 @@
     <modules>
         <module>PropertyProject</module>
         <module>ListingSearch</module>
+        <module>security</module>
     </modules>
 
     <dependencies>
