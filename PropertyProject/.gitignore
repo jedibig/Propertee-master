@@ -1,0 +1,8 @@
+.DS_Store
+target/
+out/
+PropertyProject.iml
+.idea
+.classpath
+.settings/
+.project
