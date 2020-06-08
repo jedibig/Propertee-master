@@ -12,7 +12,7 @@ phases:
       - echo $HELLO
   build:
     commands:
-      - mvn -Dmaven.test.failure.ignore=true package
+      - mvn -Dmaven.test.skip=true -Dmaven.test.failure.ignore=true package
       - echo build
   post_build:
     commands:
