@@ -9,7 +9,7 @@ phases:
   pre_build:
     commands:
       - mvn clean
-      - echo pre_build
+      - echo $HELLO
   build:
     commands:
       - mvn -Dmaven.test.failure.ignore=true package
@@ -18,12 +18,12 @@ phases:
     commands:
 #      - mvn deploy -Ddocker-tag=${dockertag} -Dpassword=${password}
       - echo post_build
-reports:
-  arn:aws:codebuild:your-region:your-aws-account-id:report-group/report-group-name-1:
-    files:
-      - "**/target/surefire-reports/TEST-*.xml"
-    base-directory: 'target/tests/reports'
-    discard-paths: no
+#reports:
+#  arn:aws:codebuild:your-region:your-aws-account-id:report-group/report-group-name-1:
+#    files:
+#      - "**/target/surefire-reports/TEST-*.xml"
+#    base-directory: 'target/tests/reports'
+#    discard-paths: no
 
 artifacts:
   files:
