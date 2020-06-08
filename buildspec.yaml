@@ -27,4 +27,4 @@ phases:
 
 artifacts:
   files:
-    - PropertyProject/target/Propertee.jar
+    - PropertyProject/target/*.jar
