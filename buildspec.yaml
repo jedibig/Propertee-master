@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  secrets-manager:
+    DOCKER_PASSWORD: arn:aws:secretsmanager:us-east-1:786370333307:secret:dev/docker/cred-83lk6X:password
+
 phases:
   install:
     runtime-versions:
@@ -16,7 +20,7 @@ phases:
       - echo build
   post_build:
     commands:
-#      - mvn deploy -Ddocker-tag=$DOCKER_TAG -Dpassword=$DOCKER_PASSWORD
+      - mvn deploy -Ddocker-tag=7 -Dpassword=$DOCKER_PASSWORD -Dusername=jbowo
       - echo skipping deploy
 #reports:
 #  arn:aws:codebuild:your-region:your-aws-account-id:report-group/report-group-name-1:
