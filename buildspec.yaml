@@ -16,8 +16,8 @@ phases:
       - echo build
   post_build:
     commands:
-      - mvn deploy -Ddocker-tag=$DOCKER_TAG -Dpassword=$DOCKER_PASSWORD
-      - echo post_build
+#      - mvn deploy -Ddocker-tag=$DOCKER_TAG -Dpassword=$DOCKER_PASSWORD
+      - echo skipping deploy
 #reports:
 #  arn:aws:codebuild:your-region:your-aws-account-id:report-group/report-group-name-1:
 #    files:
